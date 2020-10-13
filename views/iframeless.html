@@ -58,7 +58,7 @@
 			//return { access_token: "< AccessCode%>" };
 			let token = <%- token %>;
 			console.log(token);
-			return {access_token: token.tokenValue, expires_in: token.expiration};
+			return { access_token: token.tokenValue, expires_in: token.expiration };
 		};
 	</script>
 
@@ -76,12 +76,25 @@
 	<div class="container-fluid">
 		<h1>Iframe-less (Enhanced) Embedding</h1>
 		<p><em>Part of 5.9.1 feature-set, available in 5.9 as an Advanced toggle</em></p>
-		<div class="card" style="height: 20rem;">
+		<div class="card" style="height: 100vh;">
 			<div class="card-body">
 				<script data-name="composer-embed"
 					src="http://lgx01000833-u18.fios-router.home:8080/composer/embed/embed.js">
 						{
-							"dashboardId": "5f7762bb882c715bc643c2c3", "theme": "dark"
+							"dashboardId": "5f7762bb882c715bc643c2c3", 
+							"height": "100%",
+							"theme": "composer",
+							"show": {
+								"application": {
+									"banner": true
+								},
+								"editor": {
+									"header": true,
+									"breadcrumb": true,
+									"title": true,
+									"actions": true
+								}
+							}
 						}
 					</script>
 			</div>

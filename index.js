@@ -66,6 +66,8 @@ app.get('/iframeless', function(req, res) {
 				res.send(err.ErrorMessage);
 			} else {
                 token =result;
+                console.log('token');
+                console.log(token);
  				res.render('iframeless.html', {token});
 			}
 		});
