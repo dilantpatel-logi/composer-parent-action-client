@@ -12,6 +12,7 @@ var AccessToken = '';
 const clientAccess = require('./client.json');
 const { escapeRegExp } = require('lodash');
 
+let token; 
 
 // Bootstrap
 verifyOptionsPassed();
@@ -35,21 +36,21 @@ app.get('/', function(req, res) {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
 	res.setHeader('Access-Control-Allow-Credentials', true);
-	if(AccessToken.length==0) {
+	if(typeof token == "undefined") {
 		OAuthRequest(req, res, function(err, result){
 			if(err){
 				res.status(err ? err.status : 500);
 				res.send(err.ErrorMessage);
 			} else {
-				console.log(result);
-				//console.log(ComposerUrl);
-				AccessToken = result.AccessCode;
-				res.render('index.html', {"AccessCode": result.AccessCode});
+                AccessToken = result.AccessCode;
+                token=result;
+                console.log(token);
+				res.render('index.html', {token, "ComposerURL": options.server});
 			}
 		});
 	}
 	else {
-		res.render('index.html', {"AccessCode": AccessToken});
+		res.render('index.html', {token, "ComposerURL": options.server});
     }
 });
 
@@ -58,21 +59,20 @@ app.get('/iframeless', function(req, res) {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
     res.setHeader('Access-Control-Allow-Credentials', true);
-	if(AccessToken.length==0) {
+	if(typeof token == "undefined") {
 		OAuthRequest(req, res, function(err, result){
 			if(err){
 				res.status(err ? err.status : 500);
 				res.send(err.ErrorMessage);
 			} else {
-				console.log(result);
-				//console.log(ComposerUrl);
-				AccessToken = result.AccessCode;
-				res.render('iframeless.html', {"AccessCode": result.AccessCode});
+                token =result;
+ 				res.render('iframeless.html', {token});
 			}
 		});
 	}
 	else {
-		res.render('iframeless.html', {"AccessCode": AccessToken});
+        console.log(token);
+		res.render('iframeless.html', {token});
     }
 });
 
@@ -91,8 +91,7 @@ OAuthRequest = function(req, res, callback) {
 			'Authorization': `Basic ${encodeSupervisorPass()}`
 		},
 	}).then(resp => resp.text()).then(resp => {
-		console.log(resp);
-		callback(null, {AccessCode : JSON.parse(resp).tokenValue, status : 200});
+		callback(null, resp);
 	})
 	.catch(err => {
 		console.error(err);

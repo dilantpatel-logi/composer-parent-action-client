@@ -6,7 +6,7 @@ const program = require('commander');
 
 const parser = program
     .version('1.0.0')
-    .option('-s, --server <value>', 'Zoomdata Server', 'http://192.168.56.108:8080/zoomdata')
+    .option('-s, --server <value>', 'Zoomdata Server', 'http://lgx01000833-u18.fios-router.home:8080/composer')
     .option('-u, --username <value>', 'Username', 'admin')
     .option('-p, --password <value>', 'Password', 'Logi2020!')
     .option('--supassword <value>', 'SuPassword', 'Logi2020!')

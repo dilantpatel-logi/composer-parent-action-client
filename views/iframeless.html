@@ -30,28 +30,36 @@
 	</style>
 
 	<script type="text/javascript">
-		sessionStorage.setItem("logi-token", "<%=AccessCode%>");
-		const constantMock = window.fetch;
-		window.fetch = function () {
-			return new Promise((resolve, reject) => {
-				constantMock.apply(this, arguments)
-					.then((response) => {
-						if (response.url.indexOf('/api/actions/') > -1 && response.url.indexOf('/invoke') > -1) {
-							var fltr = JSON.parse(arguments[1].body).startVisMessage.filters[0];;
-							var actionLabel = fltr.path.name + '-';
-							actionLabel += fltr.value[0];
-							console.log(actionLabel);
-							$('#DownloadCSVAlert').addClass('show');
-							$('.alert-heading').text(event.data);
-						}
-						resolve(response);
-					})
-					.catch((error) => {
-						reject(response);
-						console.log(error);
-					})
-			});
-		}
+		/* 		sessionStorage.setItem("logi-token", "< AccessCode%>");
+				const constantMock = window.fetch;
+				window.fetch = function () {
+					return new Promise((resolve, reject) => {
+						constantMock.apply(this, arguments)
+							.then((response) => {
+								if (response.url.indexOf('/api/actions/') > -1 && response.url.indexOf('/invoke') > -1) {
+									var fltr = JSON.parse(arguments[1].body).startVisMessage.filters[0];;
+									var actionLabel = fltr.path.name + '-';
+									actionLabel += fltr.value[0];
+									console.log(actionLabel);
+									$('#DownloadCSVAlert').addClass('show');
+									$('.alert-heading').text(event.data);
+								}
+								resolve(response);
+							})
+							.catch((error) => {
+								reject(response);
+								console.log(error);
+							})
+					});
+				} */
+
+		window.logiGetToken = function logiGetToken() {
+			//return { access_token: "< result.AccessCode %>", expires_in: "< result.Expires_In %>" };
+			//return { access_token: "< AccessCode%>" };
+			let token = <%- token %>;
+			console.log(token);
+			return {access_token: token.tokenValue, expires_in: token.expiration};
+		};
 	</script>
 
 </head>
@@ -70,11 +78,12 @@
 		<p><em>Part of 5.9.1 feature-set, available in 5.9 as an Advanced toggle</em></p>
 		<div class="card" style="height: 20rem;">
 			<div class="card-body">
-				<script data-name="composer-embed" src="http://192.168.56.108:8080/zoomdata/embed/embed.js">
-					{
-						"dashboardId": "5f1b7d1a1937700455a79642"
-					}
-				</script>
+				<script data-name="composer-embed"
+					src="http://lgx01000833-u18.fios-router.home:8080/composer/embed/embed.js">
+						{
+							"dashboardId": "5f7762bb882c715bc643c2c3", "theme": "dark"
+						}
+					</script>
 			</div>
 		</div>
 	</div>

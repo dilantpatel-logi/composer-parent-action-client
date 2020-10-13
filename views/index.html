@@ -24,6 +24,12 @@
 		crossorigin="anonymous"></script>
 
 	<script type="text/javascript">
+		window.onload = function() {
+			let token = <%- token %>;
+			console.log(token);
+			document.getElementById('zdiframe2').src = '<%=ComposerURL%>/visualization/5f2b0b4e882c715d6cafc4f7+5f776233882c715bc643c2a3?__target=native&access_token=' + token.tokenValue;
+		};
+
 		window.addEventListener('message', function (event) {
 			if (JSON.stringify(event.data).indexOf('action_invoked') > -1) {
 				console.log(event.data);
@@ -31,7 +37,6 @@
 				$('.alert-heading').text(event.data);
 			}
 		});
-	   //sessionStorage.setItem("logi-token", "<%=AccessCode%>");
 	</script>
 </head>
 
@@ -48,7 +53,6 @@
 		<div class="card">
 			<div class="card-body">
 				<iframe id="zdiframe2" frameborder="0"
-					src="http://192.168.56.108:8080/zoomdata/visualization/5eeb6b8f1937703159779fe4+5f1b7d1a1937700455a79642?__target=embedded&access_token=<%=AccessCode%>"
 					style="overflow: hidden; height: 100%; width: 100%; min-height: 400px"></iframe>
 			</div>
 		</div>

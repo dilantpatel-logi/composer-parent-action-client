@@ -1,16 +1,16 @@
 {
-    "id": "5f1b9e3f1937700455a7964a",
-    "clientId": "ZGlsYW50LW1hYzE1OTU2NDU1MDM4MTVjMjM0YzIzMy05YWQ1LTQxMzktOWJlOS01YjA3MWU1NDU2MTQ=",
-    "clientSecret": "NzJjMDQ1MjMtMDcxOS00MTc4LTk1ZTMtM2VmODZhNGQ5OWJj",
-    "grantTypes": [
-        "implicit"
-    ],
-    "registeredRedirectUri": [
-        "https://localhost:3000/",
-        "https://oauth.pstmn.io/v1/callback",
-        "http://192.168.1.229:3000/"
-    ],
-    "clientName": "dilant-mac",
-    "accessTokenValiditySeconds": 20000,
-    "autoApprove": true
+  "id": "5f3fce3d882c710b1e765f44",
+  "clientId": "ZGlsYW50LW1hYzE1OTgwMTcwODU3NDZhNGQ1MDJhYy02YTkxLTQyZmItYmQ5OC1lYjY5ZTVhZDRjZGI=",
+  "clientSecret": "MWFlMDY5NDAtYWU5OC00ZmVmLWE5OTgtMzI0NGMxZGVjOTVh",
+  "grantTypes": [
+      "implicit"
+  ],
+  "registeredRedirectUri": [
+      "https://localhost:3000/",
+      "https://oauth.pstmn.io/v1/callback",
+      "http://192.168.1.229:3000/"
+  ],
+  "clientName": "dilant-mac",
+  "accessTokenValiditySeconds": 20000,
+  "autoApprove": true
 }
