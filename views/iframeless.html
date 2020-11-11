@@ -30,32 +30,7 @@
 	</style>
 
 	<script type="text/javascript">
-		/* 		sessionStorage.setItem("logi-token", "< AccessCode%>");
-				const constantMock = window.fetch;
-				window.fetch = function () {
-					return new Promise((resolve, reject) => {
-						constantMock.apply(this, arguments)
-							.then((response) => {
-								if (response.url.indexOf('/api/actions/') > -1 && response.url.indexOf('/invoke') > -1) {
-									var fltr = JSON.parse(arguments[1].body).startVisMessage.filters[0];;
-									var actionLabel = fltr.path.name + '-';
-									actionLabel += fltr.value[0];
-									console.log(actionLabel);
-									$('#DownloadCSVAlert').addClass('show');
-									$('.alert-heading').text(event.data);
-								}
-								resolve(response);
-							})
-							.catch((error) => {
-								reject(response);
-								console.log(error);
-							})
-					});
-				} */
-
 		window.logiGetToken = function logiGetToken() {
-			//return { access_token: "< result.AccessCode %>", expires_in: "< result.Expires_In %>" };
-			//return { access_token: "< AccessCode%>" };
 			let token = <%- token %>;
 			console.log(token);
 			return { access_token: token.tokenValue, expires_in: token.expiration };

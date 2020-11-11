@@ -54,6 +54,30 @@ app.get('/', function(req, res) {
     }
 });
 
+app.get('/sdk', function(req, res) {
+	
+	res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
+	res.setHeader('Access-Control-Allow-Credentials', true);
+	if(typeof token == "undefined") {
+		OAuthRequest(req, res, function(err, result){
+			if(err){
+				res.status(err ? err.status : 500);
+				res.send(err.ErrorMessage);
+			} else {
+                AccessToken = result.AccessCode;
+                token=result;
+                console.log(token);
+				res.render('sdk.html', {token, "ComposerURL": options.server});
+			}
+		});
+	}
+	else {
+		res.render('sdk.html', {token, "ComposerURL": options.server});
+    }
+});
+
 app.get('/iframeless', function(req, res) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
