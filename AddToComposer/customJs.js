@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	var observer = new MutationObserver(function (mutations) {
 		mutations.forEach(function (mutation) {
 			if (mutation.attributeName === "class") {
-				if ($(mutation.target).hasClass('screenshot_status_ready')) {
+				if (jQuery(mutation.target).hasClass('screenshot_status_ready')) {
 					if (typeof zd != 'undefined'
 						&& typeof zd.dashboardView != 'undefined'
 						&& typeof zd.dashboardView._controls != 'undefined') {
