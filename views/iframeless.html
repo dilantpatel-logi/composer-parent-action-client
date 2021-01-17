@@ -30,10 +30,29 @@
 	</style>
 
 	<script type="text/javascript">
-		window.logiGetToken = function logiGetToken() {
-			let token = <%- token %>;
-			console.log(token);
-			return { access_token: token.tokenValue, expires_in: token.expiration };
+		function getToken() {
+			// Fetch user's token from ***your backend service***, which you define and requests token for user from Composer and returns to frontend
+			// provide additional info in fetch command to identify user per your security architecture, e.g. forward Authorization Bearer token
+			// see fetch doc - https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch - or similar for type of command using, e.g. XHR or jQuery ajax
+			atoken = fetch('/gettoken') 
+				.then(res => res.json())
+				.then(data => {
+					t = JSON.parse(data);
+					// composer's token returns expiration time, which needs to be translated to expires_in seconds. 
+					// Token formatting should be handled in your backend service. Below is sample for demo
+					expires_in = (Date.parse(t.expiration) - new Date())/1000; 
+					tr = { "access_token": t.tokenValue, "expires_in": expires_in };
+					return tr;
+				});
+			return atoken;
+		}
+
+		// Fetch uses Promise, which can be chained with 'then' calls for asynchronous action
+		// Similarly, define logiGetToken with 'async', to  'await' getToken's promise completion
+		window.logiGetToken = async function logiGetToken() {
+			token = await getToken();
+			//console.log("tt", token);
+			return token;
 		};
 	</script>
 
@@ -53,7 +72,7 @@
 		<p><em>Part of 5.9.1 feature-set, available in 5.9 as an Advanced toggle</em></p>
 		<div class="card" style="height: 100vh;">
 			<div class="card-body">
-				<script data-name="composer-embed"
+				<!-- <script data-name="composer-embed"
 					src="http://lgx01000833-u18.fios-router.home:8080/composer/embed/embed.js">
 						{
 							"dashboardId": "5f7762bb882c715bc643c2c3", 
@@ -70,6 +89,13 @@
 									"actions": true
 								}
 							}
+						}
+					</script> -->
+
+				<script data-name="composer-embed"
+					src="http://lgx01000833-u18.fios-router.home:8080/composer/embed/embed.js">
+						{
+							"dashboardId": "5f776233882c715bc643c2a3"
 						}
 					</script>
 			</div>

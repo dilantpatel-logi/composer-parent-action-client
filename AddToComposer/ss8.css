@@ -1,0 +1,12 @@
+/* hide toast banner */
+.toast {
+  visibility: hidden;
+}
+
+/* hide header banner */
+.zd-main-header {
+  visibility: hidden;
+}
+.zd-main .zd-main-section {
+  top: 0px !important;
+}

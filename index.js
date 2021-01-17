@@ -79,7 +79,7 @@ app.get('/sdk', function(req, res) {
 });
 
 app.get('/iframeless', function(req, res) {
-	res.setHeader('Access-Control-Allow-Origin', '*');
+/* 	res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
     res.setHeader('Access-Control-Allow-Credentials', true);
@@ -100,7 +100,29 @@ app.get('/iframeless', function(req, res) {
         console.log(token);
 		res.render('iframeless.html', {token});
     }
+ */
+    res.render('iframeless.html');
 });
+
+app.get('/gettoken', function(req, res) {
+    if(typeof token == "undefined") {
+		OAuthRequest(req, res, function(err, result){
+			if(err){
+				res.status(err ? err.status : 500);
+				res.send(err.ErrorMessage);
+			} else {
+                token =result;
+                console.log('token request at ', new Date(), token);
+                res.json(token);
+			}
+		});
+    }
+    else {
+        console.log('token request at ', new Date(), token);
+        res.json(token);
+    }
+});
+
 
 app.listen(options.port, () => {
     console.log(`Action server started on port ${options.port}`);
@@ -108,22 +130,30 @@ app.listen(options.port, () => {
 });
 
 OAuthRequest = function(req, res, callback) {
-	var PostUrl = `${options.server}/api/oauth/token?username=${options.username}`;
+	var PostUrl = `${options.server}/api/oauth2/token?username=${options.username}`;
 	return fetch(PostUrl, {
 		method: 'post',
 		body: JSON.stringify(clientAccess),
 		headers: {
-			'Content-Type': 'application/vnd.zoomdata.v2+json',
+			'Content-Type': 'application/vnd.composer.v2+json',
 			'Authorization': `Basic ${encodeSupervisorPass()}`
 		},
 	}).then(resp => resp.text()).then(resp => {
 		callback(null, resp);
 	})
 	.catch(err => {
-		console.error(err);
+        console.error(err);
+        if (err.error == "Not Found") {
+            createUser();
+        }
 		callback({ErrorMessage: err, status : 500});
 	});
 };
+
+createUser = function() {
+    // call api to create user and add attributes
+    
+}
 
 function encodeSupervisorPass() {
     const {supassword} = options;

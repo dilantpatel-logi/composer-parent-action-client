@@ -27,7 +27,7 @@
 		window.onload = function() {
 			let token = <%- token %>;
 			console.log(token);
-			document.getElementById('zdiframe2').src = '<%=ComposerURL%>/visualization/5f2b0b4e882c715d6cafc4f7+5f776233882c715bc643c2a3?__target=native&access_token=' + token.tokenValue;
+			document.getElementById('zdiframe2').src = '<%=ComposerURL%>/visualization/5f2b0b4e882c715d6cafc4f7+5f737101882c71059f24ef32?access_token=' + token.tokenValue + '&inheritSourceId=5fd9854380d2344b75677686&filters=[{%22operation%22:%22IN%22,%22value%22:[%22nuclear%22],%22path%22:{%22name%22:%22source%22}},{%22operation%22:%22BETWEEN%22,%22value%22:[3,5],%22path%22:{%22name%22:%22employee_id%22}}]';
 		};
 
 		window.addEventListener('message', function (event) {
